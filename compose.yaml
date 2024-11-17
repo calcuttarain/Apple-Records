@@ -23,7 +23,7 @@ services:
           target: /var/www/html
 
   db:
-    image: mysql:8.0   # Folosește MySQL în loc de MariaDB
+    image: mysql:8.0   
     restart: always
     secrets:
       - db-password

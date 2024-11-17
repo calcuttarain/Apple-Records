@@ -8,6 +8,7 @@ RUN --mount=type=bind,source=composer.json,target=composer.json \
     composer install --no-dev --no-interaction
 
 FROM php:8.2-apache as final
+RUN a2enmod rewrite
 RUN docker-php-ext-install pdo pdo_mysql
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
