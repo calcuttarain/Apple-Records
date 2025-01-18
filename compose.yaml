@@ -16,14 +16,13 @@ services:
       - DB_HOST=db
       - DB_NAME=example
       - DB_USER=root
-    develop:
-      watch:
-        - action: sync
-          path: ./src
-          target: /var/www/html
+    volumes:
+      - ./src:/var/www/html  
+      - ./db:/var/db        
+    command: apache2-foreground 
 
   db:
-    image: mysql:8.0   
+    image: mysql:8.0
     restart: always
     secrets:
       - db-password
@@ -55,3 +54,4 @@ volumes:
 secrets:
   db-password:
     file: db/password.txt
+
