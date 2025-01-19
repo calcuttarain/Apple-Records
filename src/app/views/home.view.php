@@ -37,8 +37,8 @@
     <img src="<?= ROOT ?>/assets/images/apple.jpg" alt="Apple Image">
 
     <div class="buttons">
-        <a href="<?= ROOT ?>/register">Register</a>
-        <a href="<?= ROOT ?>/login">Login</a>
+        <a href="<?= ROOT ?>/authentication/register">Register</a>
+        <a href="<?= ROOT ?>/authentication/login">Login</a>
     </div>
 </body>
 </html>
