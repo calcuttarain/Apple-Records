@@ -3,6 +3,7 @@ require '../app/core/init.php';
 
 session_start();
 
-$router = new Router;
+DEBUG ? ini_set('display_errors', 1) : ini_set('display_errors', 0);
 
+$router = new Router;
 $router->load_controller();

@@ -4,9 +4,10 @@ trait Model
 {
     use Database;
 
-    protected $table = "users";
     protected $limit = 10;
     protected $offset = 0;
+    protected $order_type 	= "desc";
+	protected $order_column = "id";
 
     private function query($query, $data = [])
     {
@@ -28,6 +29,17 @@ trait Model
 
     public function insert($data)
     {
+        if(!empty($this->allowedColumns))
+		{
+			foreach ($data as $key => $value) {
+				
+				if(!in_array($key, $this->allowedColumns))
+				{
+					unset($data[$key]);
+				}
+			}
+		}
+
         $keys = array_keys($data);
         $query = "insert into $this->table (".implode(", ", $keys).") values (:".implode(", :", $keys).")";
 
@@ -52,7 +64,7 @@ trait Model
         }
 
         $query = trim($query, " && ");
-        $query .= " limit $this->limit offset $this->offset";
+        $query .= " order by $this->order_column $this->order_type limit $this->limit offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
@@ -82,8 +94,27 @@ trait Model
         return $this->query($query, $data)[0];
     }
 
+    public function findAll()
+	{
+	 
+		$query = "select * from $this->table order by $this->order_column $this->order_type limit $this->limit offset $this->offset";
+	
+		return $this->query($query);
+	}
+
     public function update($id, $data)
     {
+        if(!empty($this->allowedColumns))
+		{
+			foreach ($data as $key => $value) {
+				
+				if(!in_array($key, $this->allowedColumns))
+				{
+					unset($data[$key]);
+				}
+			}
+		}
+
         $keys = array_keys($data);
         $setPart = [];
 
@@ -104,7 +135,7 @@ trait Model
 
         $data = ['id' => $id];
 
-        return $this->query($query, $data);
+        $this->query($query, $data);
 
         return false;
     }
