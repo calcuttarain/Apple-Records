@@ -6,7 +6,6 @@ COPY composer.json composer.lock /app/
 
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-# Stadiul 2: Imagine PHP cu Apache
 FROM php:8.2-apache as final
 
 RUN a2enmod rewrite

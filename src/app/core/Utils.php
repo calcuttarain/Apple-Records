@@ -15,6 +15,39 @@ class Utils
         return $sanitized;
     }
 
+    public static function hasEmptyFields(array $fields): bool
+    {
+        foreach ($fields as $field) {
+            if (empty($field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function emailExists($email, $userModel)
+    {
+        $user = $userModel->select_first(['email' => $email]);
+        return $user !== null;
+    }
+
+    public static function isPasswordStrong($password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+
+        if (!preg_match('/[A-Z]/', $password)) {
+            return false;
+        }
+
+        if (!preg_match('/\d/', $password)) {
+            return false;
+        }
+
+        return true;
+    }
+
    public static function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_ARGON2ID);
