@@ -16,10 +16,6 @@ services:
       - DB_HOST=db
       - DB_NAME=apple-records-db
       - DB_USER=root
-    volumes:
-      - ./src:/var/www/html  
-      - ./db:/var/db        
-    command: apache2-foreground 
 
   db:
     image: mysql:8.0
