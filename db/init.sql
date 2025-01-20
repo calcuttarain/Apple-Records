@@ -1,9 +1,96 @@
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    type ENUM('admin', 'staff', 'band_member', 'customer') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS users (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,  
+  email VARCHAR(255) NOT NULL UNIQUE, 
+  type ENUM('admin', 'staff', 'band_member', 'customer') NOT NULL DEFAULT 'customer',
+  date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS bands (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  description TEXT,
+  date_formed DATE
+);
+
+CREATE TABLE IF NOT EXISTS band_members (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  band_id INT UNSIGNED NOT NULL,
+  date_joined DATE,
+  CONSTRAINT fk_band_members_user FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_band_members_band FOREIGN KEY (band_id) REFERENCES bands(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS albums (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  band_id INT UNSIGNED NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  release_date DATE,
+  format ENUM('vinyl', 'cassette', 'cd') NOT NULL,
+  price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  stock_quantity INT NOT NULL DEFAULT 0,
+  status ENUM('active', 'inactive') NOT NULL DEFAULT 'inactive',
+  CONSTRAINT fk_albums_band FOREIGN KEY (band_id) REFERENCES bands(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('pending', 'paid', 'shipped', 'delivered', 'canceled') NOT NULL DEFAULT 'pending',
+  total_amount DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  order_id INT UNSIGNED NOT NULL,
+  album_id INT UNSIGNED NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+  CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_order_items_album FOREIGN KEY (album_id) REFERENCES albums(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS requests (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  request_type ENUM('CONTRACT', 'ALBUM') NOT NULL,
+  status ENUM('pending', 'accepted', 'rejected') NOT NULL DEFAULT 'pending',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_requests_user FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS album_requests (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  request_id INT UNSIGNED NOT NULL,
+  band_id INT UNSIGNED NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  format ENUM('vinyl', 'cassette', 'cd') NOT NULL,
+  notes TEXT,
+  CONSTRAINT fk_album_requests_request FOREIGN KEY (request_id) REFERENCES requests(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_album_requests_band FOREIGN KEY (band_id) REFERENCES bands(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 

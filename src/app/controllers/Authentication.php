@@ -42,18 +42,32 @@ class Authentication
 
             $user = $this->userModel->select_first(['email' => $email]);
 
-            if ($user && Utils::verifyPassword($password, $user->password)) {
-                $_SESSION['user_id'] = $user->id;
-                $_SESSION['user_type'] = $user->type;
-                header('Location: ' . ROOT . '/' .$user->type);
-
-                exit;
-            } 
-            else {
+            if(!$user or !Utils::verifyPassword($password, $user->password))
+            {
                 $_SESSION['error'] = 'Email sau parolă incorectă.';
                 header('Location: ' . ROOT . '/authentication/login');
                 exit;
             }
+
+            switch ($user->type) {
+                case 'admin':
+                    header('Location: ' . ROOT . '/admin');
+                    break;
+                case 'band_member':
+                    header('Location: ' . ROOT . '/band_member');
+                    break;
+                case 'customer':
+                    header('Location: ' . ROOT . '/customer');
+                    break;
+                case 'staff':
+                    header('Location: ' . ROOT . '/staff');
+                    break;
+                default:
+                    $_SESSION['error'] = 'Rol necunoscut. Contactați administratorul.';
+                    header('Location: ' . ROOT . '/authentication/login');
+                    exit;
+            }
+            exit;
         }
     }
 
@@ -62,7 +76,8 @@ class Authentication
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = Utils::sanitize($_POST);
 
-            $name = $data['name'] ?? '';
+            $name = $data['first_name'] ?? '';
+            $name = $data['last_name'] ?? '';
             $email = $data['email'] ?? '';
             $password = $data['password'] ?? '';
             $confirm_password = $data['confirm_password'] ?? '';

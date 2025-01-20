@@ -1,6 +1,6 @@
 <?php
 
-class BandMember 
+class Band_member 
 {
     use Controller;
 

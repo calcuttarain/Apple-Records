@@ -5,7 +5,8 @@ class UserModel {
 
     protected $table = "users";
     protected $allowedColumns = [
-        "name",
+        "first_name",
+        "last_name",
         "email",
         "password",
         "type"

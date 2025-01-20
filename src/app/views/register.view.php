@@ -12,9 +12,12 @@
         <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
     <?php endif; ?>
 
-<form action="<?php echo ROOT; ?>/authentication/store" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required>
+    <form action="<?php echo ROOT; ?>/authentication/store" method="POST">
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" required>
+        <br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" required>
         <br>
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required>
