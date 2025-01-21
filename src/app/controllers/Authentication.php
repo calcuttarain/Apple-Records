@@ -76,8 +76,8 @@ class Authentication
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = Utils::sanitize($_POST);
 
-            $name = $data['first_name'] ?? '';
-            $name = $data['last_name'] ?? '';
+            $first_name = $data['first_name'] ?? '';
+            $last_name = $data['last_name'] ?? '';
             $email = $data['email'] ?? '';
             $password = $data['password'] ?? '';
             $confirm_password = $data['confirm_password'] ?? '';
@@ -111,6 +111,21 @@ class Authentication
             $data['password'] = $hashed_password;
 
             $this->userModel->insert($data);
+
+            $token = bin2hex(random_bytes(16));
+
+            try {
+                $emailService = new EmailService();
+                $emailService->sendVerificationToken($email, $user->first_name . ' ' . $user->last_name, $token);
+
+                $_SESSION['success'] = 'Tokenul a fost trimis pe adresa de e-mail.';
+                header('Location: ' . ROOT . '/authentication/token');
+                exit;
+            } catch (Exception $e) {
+                $_SESSION['error'] = 'Eroare la trimiterea e-mailului: ' . $e->getMessage();
+                header('Location: ' . ROOT . '/authentication/login');
+                exit;
+            }
 
             $_SESSION['success'] = 'Cont creat cu succes. Acum te poți autentifica.';
             header('Location: ' . ROOT . '/authentication/login');
