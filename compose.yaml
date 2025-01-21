@@ -16,6 +16,13 @@ services:
       - DB_HOST=db
       - DB_NAME=apple-records-db
       - DB_USER=root
+    volumes:
+      - ./src:/var/www/html  
+      - ./db:/var/db        
+      - vendor_data:/var/www/html/vendor
+    command: apache2-foreground 
+    env_file:
+      - .env
 
   db:
     image: mysql:8.0
@@ -47,6 +54,7 @@ services:
 
 volumes:
   db-data:
+  vendor_data:
 
 secrets:
   db-password:
