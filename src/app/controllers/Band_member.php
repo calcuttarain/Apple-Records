@@ -7,7 +7,15 @@ class Band_member
     public function index() 
     {
         $this->authorize(['band_member']);
-        $this->view('band_member_dashboard');
+
+        $bandMemberModel = new BandMemberModel();
+        $found = $bandMemberModel->findByUserId($_SESSION['user_id']);
+
+        if ($found) {
+            $this->view('band_member_dashboard');
+        } else {
+            $this->view('band_member_not_verified');
+        }
     }
 
     public function contractForm()
@@ -66,5 +74,72 @@ class Band_member
         extract($data);
         require $filename;
     }
+
+public function albumForm()
+    {
+        $this->authorize(['band_member']);
+
+        $bandMemberModel = new BandMemberModel();
+        $found = $bandMemberModel->findByUserId($_SESSION['user_id']);
+        if (!$found) {
+            $_SESSION['error'] = 'Nu poți crea cereri de album dacă nu ești validat în vreo trupă.';
+            header('Location: ' . ROOT . '/band_member');
+            exit;
+        }
+
+        $this->view('band_member_album_form');
+    }
+
+    public function createAlbumRequest()
+    {
+        $this->authorize(['band_member']);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = $_POST;
+
+            if (empty($data['title']) || empty($data['format'])) {
+                $_SESSION['error'] = 'Titlul și formatul sunt obligatorii.';
+                header('Location: ' . ROOT . '/band_member/albumForm');
+                exit;
+            }
+
+            $bandMemberModel = new BandMemberModel();
+            $found = $bandMemberModel->findByUserId($_SESSION['user_id']);
+            if (!$found) {
+                $_SESSION['error'] = 'Nu ești validat ca membru al unei trupe.';
+                header('Location: ' . ROOT . '/band_member');
+                exit;
+            }
+
+            $data['user_id'] = $_SESSION['user_id'];
+            $data['band_id'] = $found->band_id;
+
+            $albumRequestModel = new AlbumRequestModel();
+            $requestId = $albumRequestModel->createAlbumRequest($data);
+
+            if ($requestId) {
+                $_SESSION['success'] = "Cererea de album (#$requestId) a fost trimisă.";
+                header('Location: ' . ROOT . '/band_member');
+            } else {
+                $_SESSION['error'] = 'Eroare la crearea cererii de album.';
+                header('Location: ' . ROOT . '/band_member/albumForm');
+            }
+            exit;
+        }
+
+        header('Location: ' . ROOT . '/band_member/albumForm');
+        exit;
+    }
+
+    public function myAlbumRequests()
+    {
+        $this->authorize(['band_member']);
+
+        $albumRequestModel = new AlbumRequestModel();
+        $myAlbumRequests = $albumRequestModel->getAlbumRequestsByUser($_SESSION['user_id']);
+
+        $this->view('band_member_my_album_requests', ['requests' => $myAlbumRequests]);
+    }
+
 }
 

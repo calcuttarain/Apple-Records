@@ -5,14 +5,7 @@
 </head>
 <body>
 
-<h1>Bine ai venit, Band Member!</h1>
-
-<?php if(!empty($_SESSION['success'])): ?>
-    <p style="color:green;">
-        <?= htmlspecialchars($_SESSION['success']); ?>
-        <?php unset($_SESSION['success']); ?>
-    </p>
-<?php endif; ?>
+<h1>Band Member Dashboard</h1>
 
 <?php if(!empty($_SESSION['error'])): ?>
     <p style="color:red;">
@@ -21,9 +14,16 @@
     </p>
 <?php endif; ?>
 
+<?php if(!empty($_SESSION['success'])): ?>
+    <p style="color:green;">
+        <?= htmlspecialchars($_SESSION['success']); ?>
+        <?php unset($_SESSION['success']); ?>
+    </p>
+<?php endif; ?>
+
 <ul>
-    <li><a href="<?= ROOT ?>/band_member/contractForm">Crează cerere de contract</a></li>
-    <li><a href="<?= ROOT ?>/band_member/myRequests">Vezi cererile mele de contract</a></li>
+    <li><a href="<?= ROOT ?>/band_member/albumForm">Crează cerere de album</a></li>
+    <li><a href="<?= ROOT ?>/band_member/myAlbumRequests">Vezi cererile mele de album</a></li>
 </ul>
 
 </body>
