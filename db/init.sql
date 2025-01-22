@@ -114,6 +114,15 @@ CREATE TABLE IF NOT EXISTS site_stats (
   users_count INT UNSIGNED NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS user_activity (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED,
+  controller VARCHAR(100),
+  method VARCHAR(100),
+  date_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  ip_address VARCHAR(45)
+);
+
 
 -- parola pentru toate conturile e Pass1234
 INSERT INTO users (first_name, last_name, password, email, type, verified)

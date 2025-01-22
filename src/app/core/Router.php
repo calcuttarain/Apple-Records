@@ -38,6 +38,23 @@ class Router{
                 }	
             }
 
+            $this->logUserActivity($this->controller, $this->method);
+
             call_user_func_array([$controller, $this->method], $URL);
       }
+
+    private function logUserActivity($controller, $method)
+    {
+        $userId = $_SESSION['user_id'] ?? null;
+
+        $ipAddress = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+
+        $activityModel = new UserActivityModel();
+        $activityModel->logAction([
+            'user_id'    => $userId,
+            'controller' => $controller,
+            'method'     => $method,
+            'ip_address' => $ipAddress,
+        ]);
+    }
 }
