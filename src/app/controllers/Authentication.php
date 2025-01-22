@@ -54,17 +54,24 @@ class Authentication
                 exit;
             }
 
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['email'] = $user->email;
+
             switch ($user->type) {
                 case 'admin':
+                    $_SESSION['user_type'] = 'admin';
                     header('Location: ' . ROOT . '/admin');
                     break;
                 case 'band_member':
+                    $_SESSION['user_type'] = 'band_member';
                     header('Location: ' . ROOT . '/band_member');
                     break;
                 case 'customer':
+                    $_SESSION['user_type'] = 'customer';
                     header('Location: ' . ROOT . '/customer');
                     break;
                 case 'staff':
+                    $_SESSION['user_type'] = 'staff';
                     header('Location: ' . ROOT . '/staff');
                     break;
                 default:

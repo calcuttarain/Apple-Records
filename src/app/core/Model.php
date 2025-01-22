@@ -139,4 +139,19 @@ trait Model
 
         return false;
     }
+
+    protected function customQuery($sql, $data = [])
+    {
+        $conn = $this->getConnection();
+        $stmt = $conn->prepare($sql);
+        $check = $stmt->execute($data);
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+            if (is_array($result) && count($result)) {
+                return $result;
+            }
+        }
+        return [];
+    }
+
 }
