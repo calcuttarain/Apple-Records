@@ -9,6 +9,8 @@ class UserModel {
         "last_name",
         "email",
         "password",
+        "token",
+        "verified",
         "type"
     ];
 }

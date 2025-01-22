@@ -9,6 +9,13 @@ spl_autoload_register(function($classname) {
     if (file_exists($filename)) {
         require $filename;
     }
+
+    else {
+        $filename = "../app/controllers/" . ucfirst($classname) . ".php";
+        if (file_exists($filename)) {
+            require $filename;
+        }
+    }
 });
 
 require 'config.php';

@@ -42,10 +42,15 @@ class Authentication
 
             $user = $this->userModel->select_first(['email' => $email]);
 
-            if(!$user or !Utils::verifyPassword($password, $user->password))
-            {
+            if (!$user or !Utils::verifyPassword($password, $user->password)) {
                 $_SESSION['error'] = 'Email sau parolă incorectă.';
                 header('Location: ' . ROOT . '/authentication/login');
+                exit;
+            }
+
+            if (!$user->verified) {
+                $_SESSION['error'] = 'Contul nu este verificat. Verificați email-ul pentru token.';
+                header('Location: ' . ROOT . '/authentication/token');
                 exit;
             }
 
@@ -108,28 +113,111 @@ class Authentication
             }
 
             $hashed_password = Utils::hashPassword($password);
+            $token = bin2hex(random_bytes(16));
+
             $data['password'] = $hashed_password;
+            $data['token'] = $token;
+            $data['verified'] = 0;
 
             $this->userModel->insert($data);
 
-            $token = bin2hex(random_bytes(16));
+            $_SESSION['email'] = $email; 
 
             try {
                 $emailService = new EmailService();
-                $emailService->sendVerificationToken($email, $user->first_name . ' ' . $user->last_name, $token);
+                $emailService->sendVerificationToken($email, $first_name . ' ' . $last_name, $token);
 
                 $_SESSION['success'] = 'Tokenul a fost trimis pe adresa de e-mail.';
                 header('Location: ' . ROOT . '/authentication/token');
                 exit;
             } catch (Exception $e) {
                 $_SESSION['error'] = 'Eroare la trimiterea e-mailului: ' . $e->getMessage();
+                header('Location: ' . ROOT . '/authentication/register');
+                exit;
+            }
+        }
+    }
+
+    public function token()
+    {
+        $this->view('token');
+    }
+
+    public function verifyToken()
+    {
+        $token = $_GET['token'] ?? null; 
+        $email = $_SESSION['email'] ?? null; 
+
+        if (!$email) {
+            $_SESSION['error'] = 'Eroare: Adresa de email nu este stocată. Reîncepe procesul.';
+            header('Location: ' . ROOT . '/authentication/register');
+            exit;
+        }
+
+        if (!$token) {
+            $_SESSION['error'] = 'Tokenul lipsește. Verifică email-ul pentru linkul de verificare.';
+            header('Location: ' . ROOT . '/authentication/token');
+            exit;
+        }
+
+        $user = $this->userModel->select_first(['email' => $email, 'token' => $token]);
+
+        if (!$user) {
+            $_SESSION['error'] = 'Token invalid sau expirat.';
+            header('Location: ' . ROOT . '/authentication/token');
+            exit;
+        }
+
+        $this->userModel->update($user->id, [
+            'verified' => 1,
+            'token' => null
+        ]);
+
+        $_SESSION['success'] = 'Cont verificat cu succes. Acum vă puteți autentifica.';
+        header('Location: ' . ROOT . '/authentication/login');
+        exit;
+    }
+
+   public function resendToken()
+   {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = $_SESSION['email'] ?? null;
+
+            if (!$email) {
+                $_SESSION['error'] = 'Eroare: Adresa de email nu este stocată. Reîncepe procesul.';
+                header('Location: ' . ROOT . '/authentication/register');
+                exit;
+            }
+
+            $user = $this->userModel->select_first(['email' => $email]);
+
+            if (!$user) {
+                $_SESSION['error'] = 'Email invalid.';
+                header('Location: ' . ROOT . '/authentication/token');
+                exit;
+            }
+
+            if ($user->verified) {
+                $_SESSION['error'] = 'Contul este deja verificat.';
                 header('Location: ' . ROOT . '/authentication/login');
                 exit;
             }
 
-            $_SESSION['success'] = 'Cont creat cu succes. Acum te poți autentifica.';
-            header('Location: ' . ROOT . '/authentication/login');
-            exit;
+            $token = bin2hex(random_bytes(16));
+            $this->userModel->update($user->id, ['token' => $token]);
+
+            try {
+                $emailService = new EmailService();
+                $emailService->sendVerificationToken($email, $user->first_name . ' ' . $user->last_name, $token);
+
+                $_SESSION['success'] = 'Tokenul a fost retrimis pe adresa de e-mail.';
+                header('Location: ' . ROOT . '/authentication/token');
+                exit;
+            } catch (Exception $e) {
+                $_SESSION['error'] = 'Eroare la trimiterea e-mailului: ' . $e->getMessage();
+                header('Location: ' . ROOT . '/authentication/token');
+                exit;
+            }
         }
     }
 }

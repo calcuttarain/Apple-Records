@@ -48,9 +48,13 @@ class EmailService
 
     public function sendVerificationToken($recipientEmail, $recipientName, $token)
     {
+        $verificationLink = ROOT . "/authentication/verifyToken?token=$token";
+
         $subject = 'Autentificare cu token';
-        $body = "Salut $recipientName,<br><br>Tokenul tău pentru autentificare este: <b>$token</b><br><br>Mulțumim!";
-        $altBody = "Salut $recipientName,\n\nTokenul tău pentru autentificare este: $token\n\nMulțumim!";
+        $body = "Salut $recipientName,<br><br>Tokenul tău pentru autentificare este: <b>$token</b><br><br>
+                 Sau poți verifica direct folosind acest link: <a href=\"$verificationLink\">Verifică acum</a><br><br>Mulțumim!";
+        $altBody = "Salut $recipientName,\n\nTokenul tău pentru autentificare este: $token\n\n
+                    Sau poți verifica direct folosind acest link: $verificationLink\n\nMulțumim!";
 
         $this->sendEmail($recipientEmail, $recipientName, $subject, $body, $altBody);
     }
