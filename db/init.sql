@@ -96,6 +96,17 @@ CREATE TABLE IF NOT EXISTS album_requests (
     ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS contract_requests (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  request_id INT UNSIGNED NOT NULL,
+  band_name VARCHAR(200) NOT NULL,
+  members_emails TEXT,
+  demo_link VARCHAR(255),
+  CONSTRAINT fk_contract_requests_request FOREIGN KEY (request_id) REFERENCES requests(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
 -- parola pentru toate conturile e Pass1234
 INSERT INTO users (first_name, last_name, password, email, type, verified)
 VALUES
