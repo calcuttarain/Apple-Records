@@ -58,4 +58,26 @@ class EmailService
 
         $this->sendEmail($recipientEmail, $recipientName, $subject, $body, $altBody);
     }
+
+    public function sendContactMessage($fromEmail, $subject, $message)
+    {
+        try {
+            $toEmail = FROM_EMAIL;
+            $toName  = FROM_NAME;
+
+            $body = "Mesaj primit de la: $fromEmail <br><br>$message";
+            $altBody = "Mesaj primit de la: $fromEmail\n\n$message";
+
+            $this->mailer->clearAddresses();
+            $this->mailer->addAddress($toEmail, $toName);
+            $this->mailer->isHTML(true);
+            $this->mailer->Subject = $subject;
+            $this->mailer->Body = $body;
+            $this->mailer->AltBody = $altBody;
+
+            $this->mailer->send();
+        } catch (Exception $e) {
+            throw new Exception('Eroare la trimiterea mesajului de contact: ' . $this->mailer->ErrorInfo);
+        }
+    }
 }

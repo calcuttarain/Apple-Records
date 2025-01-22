@@ -200,4 +200,43 @@ class Customer
         $this->view('customer_orders', ['orders' => $rows]);
     }
 
+    public function contactForm()
+    {
+        $this->authorize(['customer']);
+        $this->view('customer_contact_form');
+    }
+
+    public function sendContact()
+    {
+        $this->authorize(['customer']);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = $_POST;
+            $subject = trim($data['subject'] ?? '');
+            $message = trim($data['message'] ?? '');
+
+            if (empty($subject) || empty($message)) {
+                $_SESSION['error'] = 'Subiectul și mesajul sunt obligatorii.';
+                header('Location: ' . ROOT . '/customer/contactForm');
+                exit;
+            }
+
+            $fromEmail = $_SESSION['email'] ?? 'unknown@example.com';
+
+            $emailService = new EmailService();
+
+            try {
+                $emailService->sendContactMessage($fromEmail, $subject, $message);
+                $_SESSION['success'] = 'Mesajul a fost trimis cu succes către Casa de Discuri.';
+            } catch (Exception $e) {
+                $_SESSION['error'] = 'Eroare la trimiterea email-ului: ' . $e->getMessage();
+            }
+
+            header('Location: ' . ROOT . '/customer/contactForm');
+            exit;
+        }
+
+        header('Location: ' . ROOT . '/customer/contactForm');
+        exit;
+    }
 }

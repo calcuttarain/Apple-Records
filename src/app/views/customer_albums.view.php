@@ -27,7 +27,7 @@
                 <th>Format</th>
                 <th>Preț (RON)</th>
                 <th>Stoc</th>
-                <th>Acțiune</th> 
+                <th>Acțiune</th>
             </tr>
         </thead>
         <tbody>
@@ -53,5 +53,13 @@
     <p style="text-align:center;">Momentan nu există albume disponibile.</p>
 <?php endif; ?>
 
+<p style="text-align:center; margin-top:20px;">
+    <a href="<?= ROOT ?>/customer/contactForm"
+       style="padding:10px 20px; background:#333; color:#fff; text-decoration:none; border-radius:5px;">
+        Contactează Casa de Discuri
+    </a>
+</p>
+
 </body>
 </html>
+
