@@ -26,6 +26,14 @@ class Authentication
         $this->view('register');
     }
 
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        header('Location: ' . ROOT);
+        exit;
+    }
+
     public function authenticate()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <h1>Albume disponibile la vânzare</h1>
 
 <?php if (!empty($albums)): ?>

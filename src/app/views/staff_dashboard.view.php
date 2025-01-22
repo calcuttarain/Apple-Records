@@ -4,6 +4,9 @@
     <title>Staff Dashboard</title>
 </head>
 <body>
+
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <h1>Bine ai venit, Staff!</h1>
 
 <?php if(!empty($_SESSION['success'])): ?>

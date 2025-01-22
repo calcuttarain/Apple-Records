@@ -5,6 +5,9 @@
     <title>Comenzile mele</title>
 </head>
 <body>
+
+<?php require __DIR__ . '/header.view.php'; ?>
+
     <h1>Comenzile mele</h1>
 
     <?php if(!empty($orders)): ?>

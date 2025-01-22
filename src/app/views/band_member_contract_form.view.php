@@ -7,6 +7,8 @@
 
 <h1>Creează Cerere de Contract</h1>
 
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <?php if(!empty($_SESSION['error'])): ?>
     <p style="color:red;">
         <?= htmlspecialchars($_SESSION['error']); ?>

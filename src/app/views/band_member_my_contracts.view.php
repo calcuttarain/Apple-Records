@@ -5,6 +5,8 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <h1>Cererile mele de contract</h1>
 
 <?php if(!empty($requests)): ?>

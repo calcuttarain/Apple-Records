@@ -5,6 +5,8 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <h1>Album Requests (Pending)</h1>
 
 <?php if (!empty($_SESSION['success'])): ?>

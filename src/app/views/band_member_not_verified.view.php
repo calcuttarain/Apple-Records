@@ -5,6 +5,8 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/header.view.php'; ?>
+
 <h1>Bine ai venit, Band Member!</h1>
 
 <?php if(!empty($_SESSION['success'])): ?>

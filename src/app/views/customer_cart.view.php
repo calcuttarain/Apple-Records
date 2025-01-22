@@ -5,6 +5,10 @@
     <title>Coșul meu</title>
 </head>
 <body>
+
+    <?php require __DIR__ . '/header.view.php'; ?>
+
+
     <h1>Coș de cumpărături</h1>
 
     <?php if (!empty($cartDetails)): ?>
