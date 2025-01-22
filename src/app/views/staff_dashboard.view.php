@@ -22,8 +22,9 @@
 
 <ul>
     <li><a href="<?= ROOT ?>/staff/contractRequests">View Contract Pending Requests</a></li>
-    <li><a href="#">Album Requests</a></li>
+    <li><a href="<?= ROOT ?>/staff/albumRequests">View Album Pending Requests</a></li>
 </ul>
 
 </body>
 </html>
+

@@ -77,4 +77,76 @@ class Staff
         extract($data);
         require $filename;
     }
+
+    public function albumRequests()
+    {
+        $this->authorize(['staff']);
+
+        $albumRequestModel = new AlbumRequestModel();
+        $pendingRequests = $albumRequestModel->getPendingAlbumRequests();
+
+        $this->view('staff_album_requests', [
+            'requests' => $pendingRequests
+        ]);
+    }
+
+    public function acceptAlbumRequest($requestId = null)
+    {
+        $this->authorize(['staff']);
+
+        if (!$requestId) {
+            $_SESSION['error'] = 'Request ID invalid.';
+            header('Location: ' . ROOT . '/staff/albumRequests');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $price = $_POST['price'] ?? null;
+            $stock = $_POST['stock_quantity'] ?? null;
+
+            if ($price === null || $stock === null) {
+                $_SESSION['error'] = 'Te rugăm să completezi prețul și stocul.';
+                header('Location: ' . ROOT . '/staff/albumRequests');
+                exit;
+            }
+
+            $albumRequestModel = new AlbumRequestModel();
+            $success = $albumRequestModel->acceptAlbum($requestId, $price, $stock);
+
+            if ($success) {
+                $_SESSION['success'] = "Cererea de album #$requestId a fost acceptată și albumul a fost creat.";
+            } else {
+                $_SESSION['error'] = "A apărut o problemă la acceptarea cererii de album #$requestId.";
+            }
+
+            header('Location: ' . ROOT . '/staff/albumRequests');
+            exit;
+        }
+
+        header('Location: ' . ROOT . '/staff/albumRequests');
+        exit;
+    }
+
+    public function rejectAlbumRequest($requestId = null)
+    {
+        $this->authorize(['staff']);
+
+        if (!$requestId) {
+            $_SESSION['error'] = 'Request ID invalid.';
+            header('Location: ' . ROOT . '/staff/albumRequests');
+            exit;
+        }
+
+        $albumRequestModel = new AlbumRequestModel();
+        $success = $albumRequestModel->rejectAlbum($requestId);
+
+        if ($success) {
+            $_SESSION['success'] = "Cererea de album #$requestId a fost respinsă.";
+        } else {
+            $_SESSION['error'] = "A apărut o problemă la respingerea cererii de album #$requestId.";
+        }
+
+        header('Location: ' . ROOT . '/staff/albumRequests');
+        exit;
+    }
 }

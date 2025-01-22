@@ -41,5 +41,23 @@ class AlbumModel
             'id' => $albumId
         ]);
     }
+
+    public function createAlbum($data)
+    {
+        $keys = array_keys($data);
+
+        $sql = "
+            INSERT INTO {$this->table} (".implode(',', $keys).")
+            VALUES (:".implode(',:', $keys).")
+        ";
+
+        $this->query($sql, $data);
+
+        $res = $this->query("SELECT LAST_INSERT_ID() AS last_id");
+        if ($res && isset($res[0]->last_id)) {
+            return $res[0]->last_id;
+        }
+        return 0;
+    }
 }
 
