@@ -29,6 +29,22 @@
         .buttons a:hover {
             background-color: #0056b3;
         }
+
+        /* Un mic stil pentru secțiunea de statistici */
+        .stats {
+            margin-top: 40px;
+            display: inline-block;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .stats h2 {
+            margin-top: 0;
+        }
+        .stats p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +56,15 @@
         <a href="<?= ROOT ?>/authentication/register">Register</a>
         <a href="<?= ROOT ?>/authentication/login">Login</a>
     </div>
+
+    <!-- Afișare statistici (dacă există) -->
+    <?php if (!empty($stats)): ?>
+    <div class="stats">
+        <p><strong>Număr de vizitatori:</strong> <?= htmlspecialchars($stats->visitors) ?></p>
+    </div>
+    <?php else: ?>
+        <p>Statistici indisponibile momentan.</p>
+    <?php endif; ?>
 </body>
 </html>
 

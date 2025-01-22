@@ -138,6 +138,9 @@ class Authentication
 
             $_SESSION['email'] = $email; 
 
+            $statsModel = new StatsModel();
+            $stats = $statsModel->incrementUsersCount();
+
             try {
                 $emailService = new EmailService();
                 $emailService->sendVerificationToken($email, $first_name . ' ' . $last_name, $token);

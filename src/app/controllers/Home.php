@@ -1,11 +1,16 @@
 <?php
 
-class Home 
+class Home
 {
     use Controller;
 
-    public function index() 
+    public function index()
     {
-        $this->view('home');
+        $statsModel = new StatsModel();
+        $stats = $statsModel->getSiteStats();
+
+        $this->view('home', ['stats' => $stats]);
+        $statsModel->incrementVisitors();
     }
 }
+

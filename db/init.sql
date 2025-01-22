@@ -107,6 +107,14 @@ CREATE TABLE IF NOT EXISTS contract_requests (
     ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS site_stats (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  visitors INT UNSIGNED NOT NULL DEFAULT 0,
+  page_views INT UNSIGNED NOT NULL DEFAULT 0,
+  users_count INT UNSIGNED NOT NULL DEFAULT 0
+);
+
+
 -- parola pentru toate conturile e Pass1234
 INSERT INTO users (first_name, last_name, password, email, type, verified)
 VALUES
