@@ -1,8 +1,5 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 class Admin 
 {
     use Controller;
@@ -18,43 +15,42 @@ class Admin
         $this->authorize(['admin']);
 
         $activityModel = new UserActivityModel();
-        $rows = $activityModel->getAll(); 
+        $rows = $activityModel->getAll();  // array de obiecte cu user_id, controller, etc.
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle('Raport Activitate');
+        // Numele fișierului
+        $fileName = "activity_log_" . date('Ymd_His') . ".csv";
 
-        $sheet->setCellValue('A1', 'ID');
-        $sheet->setCellValue('B1', 'User ID');
-        $sheet->setCellValue('C1', 'Controller');
-        $sheet->setCellValue('D1', 'Method');
-        $sheet->setCellValue('E1', 'Date Time');
-        $sheet->setCellValue('F1', 'IP Address');
+        // Trimitem antetele pentru download
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        // Oprire caching (opțional)
+        header('Pragma: no-cache');
+        header('Expires: 0');
 
-        $rowNum = 2; 
+        // Deschidem "php://output" ca să scriem direct în fluxul de răspuns
+        $output = fopen('php://output', 'w');
+
+        // Scriem un rând de antet (header) pentru coloane
+        fputcsv($output, ['ID', 'User ID', 'Controller', 'Method', 'Date Time', 'IP Address']);
+
+        // Acum iterăm datele și scriem fiecare rând în format CSV
         if ($rows) {
             foreach ($rows as $r) {
-                $sheet->setCellValue('A'.$rowNum, $r->id);
-                $sheet->setCellValue('B'.$rowNum, $r->user_id);
-                $sheet->setCellValue('C'.$rowNum, $r->controller);
-                $sheet->setCellValue('D'.$rowNum, $r->method);
-                $sheet->setCellValue('E'.$rowNum, $r->date_time);
-                $sheet->setCellValue('F'.$rowNum, $r->ip_address);
-                $rowNum++;
+                // `fputcsv` primește un array cu valorile
+                fputcsv($output, [
+                    $r->id,
+                    $r->user_id,
+                    $r->controller,
+                    $r->method,
+                    $r->date_time,
+                    $r->ip_address
+                ]);
             }
         }
 
-        $writer = new Xlsx($spreadsheet);
-        $fileName = "activity_log_" . date('Ymd_His') . ".xlsx";
-
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="'. $fileName .'"');
-        header('Cache-Control: max-age=0');
-
-        $writer->save('php://output');
-        exit;
+        fclose($output);
+        exit; // Ne asigurăm că scriptul se oprește aici
     }
-
     public function logs()
     {
         $this->authorize(['admin']);
