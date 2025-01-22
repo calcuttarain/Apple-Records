@@ -239,4 +239,49 @@ class Customer
         header('Location: ' . ROOT . '/customer/contactForm');
         exit;
     }
+
+    public function bandWiki($bandName = null)
+    {
+        $this->authorize(['customer']);
+
+        if (!$bandName) {
+            $_SESSION['error'] = 'Nume de trupă invalid.';
+            header('Location: ' . ROOT . '/customer');
+            exit;
+        }
+
+        $decodedName = urldecode($bandName);
+
+        $wikiInfo = $this->fetchWikiExcerpt($decodedName);
+
+        $this->view('customer_band_info', [
+            'bandName' => $decodedName,
+            'wikiInfo' => $wikiInfo
+        ]);
+    }
+
+    private function fetchWikiExcerpt($bandName)
+    {
+        $title = str_replace(' ', '_', $bandName);
+
+        $url = "https://en.wikipedia.org/api/rest_v1/page/summary/" . urlencode($title);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        if (!$response) {
+            return "Nu s-a putut obține informația de pe Wikipedia.";
+        }
+
+        $data = json_decode($response, true);
+        if (isset($data['extract']) && !empty($data['extract'])) {
+            return $data['extract'];  
+        } else {
+            return "Nu există rezumat Wikipedia pentru această trupă.";
+        }
+    }
+
 }

@@ -33,7 +33,11 @@
         <tbody>
             <?php foreach ($albums as $album): ?>
             <tr>
-                <td><?= htmlspecialchars($album->band_name) ?></td>
+                <td>
+                        <a href="<?= ROOT ?>/customer/bandWiki/<?= urlencode($album->band_name) ?>">
+                            <?= htmlspecialchars($album->band_name) ?>
+                        </a>
+                </td>
                 <td><?= htmlspecialchars($album->title) ?></td>
                 <td><?= htmlspecialchars($album->band_description) ?></td>
                 <td><?= htmlspecialchars($album->release_date) ?></td>

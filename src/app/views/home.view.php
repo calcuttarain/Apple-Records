@@ -57,7 +57,6 @@
         <a href="<?= ROOT ?>/authentication/login">Login</a>
     </div>
 
-    <!-- Afișare statistici (dacă există) -->
     <?php if (!empty($stats)): ?>
     <div class="stats">
         <p><strong>Număr de vizitatori:</strong> <?= htmlspecialchars($stats->visitors) ?></p>
@@ -67,4 +66,3 @@
     <?php endif; ?>
 </body>
 </html>
-

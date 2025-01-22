@@ -2,13 +2,10 @@
 
 class StatsModel
 {
-    use Model;  // Folosește metodele din trait Model (select, update, customQuery etc.)
+    use Model;  
 
-    protected $table = 'site_stats';  // Numele tabelei în DB
+    protected $table = 'site_stats';  
 
-    /**
-     * Coloanele permise (filtrare la insert / update).
-     */
     protected $allowedColumns = [
         'id',
         'visitors',
@@ -16,17 +13,11 @@ class StatsModel
         'users_count'
     ];
 
-    /**
-     * Obține statistica site-ului de pe rândul cu id=1.
-     * Dacă acel rând nu există încă, îl creăm.
-     */
     public function getSiteStats()
     {
-        // Încearcă să selectezi rândul cu id=1
         $stats = $this->select_first(['id' => 1]);
 
         if (!$stats) {
-            // Dacă nu există, îl creăm cu valori inițiale (0).
             $this->insert([
                 'id'           => 1,
                 'visitors'     => 0,
@@ -34,7 +25,6 @@ class StatsModel
                 'users_count'  => 0,
             ]);
 
-            // Și apoi îl selectăm din nou
             $stats = $this->select_first(['id' => 1]);
         }
         return $stats;
