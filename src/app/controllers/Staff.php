@@ -7,7 +7,7 @@ class Staff
     public function index() 
     {
         $this->authorize(['staff']);
-        $this->view('staff_dashboard');
+        $this->view('dashboard', [], 'staff');
     }
 
     public function contractRequests()
@@ -17,9 +17,9 @@ class Staff
         $contractRequestModel = new ContractRequestModel();
         $pendingRequests = $contractRequestModel->getPendingContractRequests();
 
-        $this->view('staff_contract_requests', [
+        $this->view('contract_requests', [
             'requests' => $pendingRequests
-        ]);
+        ], 'staff');
     }
 
     public function acceptContract($requestId = null)
@@ -68,16 +68,6 @@ class Staff
         exit;
     }
 
-    public function view($name, $data = [])
-    {
-        $filename = "../app/views/$name.view.php";
-        if (!file_exists($filename)) {
-            $filename = "../app/views/404.view.php";
-        }
-        extract($data);
-        require $filename;
-    }
-
     public function albumRequests()
     {
         $this->authorize(['staff']);
@@ -85,9 +75,9 @@ class Staff
         $albumRequestModel = new AlbumRequestModel();
         $pendingRequests = $albumRequestModel->getPendingAlbumRequests();
 
-        $this->view('staff_album_requests', [
-            'requests' => $pendingRequests
-        ]);
+        $this->view('album_requests', [
+            'requests' => $pendingRequests,
+        ], 'staff');
     }
 
     public function acceptAlbumRequest($requestId = null)

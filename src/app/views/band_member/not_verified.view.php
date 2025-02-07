@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<?php require __DIR__ . '/header.view.php'; ?>
+<?php require __DIR__ . '/../header.view.php'; ?>
 
 <h1>Bine ai venit, Band Member!</h1>
 

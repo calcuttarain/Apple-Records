@@ -57,7 +57,8 @@ class Authentication
             }
 
             if (!$user->verified) {
-                $_SESSION['error'] = 'Contul nu este verificat. Verificați email-ul pentru token.';
+                $_SESSION['error'] = 'Contul nu este verificat. Vă rugăm să vă verificați email-ul pentru link-ul de confirmare.';
+                $_SESSION['email'] = $user->email;
                 header('Location: ' . ROOT . '/authentication/token');
                 exit;
             }
@@ -202,8 +203,8 @@ class Authentication
             $email = $_SESSION['email'] ?? null;
 
             if (!$email) {
-                $_SESSION['error'] = 'Eroare: Adresa de email nu este stocată. Reîncepe procesul.';
-                header('Location: ' . ROOT . '/authentication/register');
+                $_SESSION['error'] = 'Eroare: Adresa de email nu a fost corect stocată. Reîncepe procesul de verificare a e-mailului.';
+                header('Location: ' . ROOT . '/authentication/login');
                 exit;
             }
 

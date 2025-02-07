@@ -11,7 +11,7 @@ class Customer
         $albumModel = new AlbumModel();
         $albums = $albumModel->getAllActiveWithBandInfo();
 
-        $this->view('customer_albums', ['albums' => $albums]);
+        $this->view('albums', ['albums' => $albums], 'customer');
     }
 
     public function addToCart($id = null)
@@ -79,10 +79,10 @@ class Customer
             }
         }
 
-        $this->view('customer_cart', [
+        $this->view('cart', [
             'cartDetails' => $cartDetails,
             'total'       => $total
-        ]);
+        ], 'customer');
     }
 
     public function incrementQuantity($id = null)
@@ -197,13 +197,13 @@ class Customer
 
         $rows = $orderModel->getUserOrders($userId);
 
-        $this->view('customer_orders', ['orders' => $rows]);
+        $this->view('orders', ['orders' => $rows], 'customer');
     }
 
     public function contactForm()
     {
         $this->authorize(['customer']);
-        $this->view('customer_contact_form');
+        $this->view('contact_form', [], 'customer');
     }
 
     public function sendContact()
@@ -254,10 +254,10 @@ class Customer
 
         $wikiInfo = $this->fetchWikiExcerpt($decodedName);
 
-        $this->view('customer_band_info', [
+        $this->view('band_info', [
             'bandName' => $decodedName,
             'wikiInfo' => $wikiInfo
-        ]);
+        ], 'customer');
     }
 
     private function fetchWikiExcerpt($bandName)

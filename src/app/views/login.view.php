@@ -12,6 +12,11 @@
         <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
     <?php endif; ?>
 
+    <?php if (!empty($_SESSION['success'])): ?>
+        <p style="color: green;"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></p>
+    <?php endif; ?>
+
+
     <form action="<?php echo ROOT; ?>/authentication/authenticate" method="POST">
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required>

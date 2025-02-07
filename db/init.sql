@@ -162,3 +162,7 @@ INSERT INTO albums (band_id, title, release_date, format, price, stock_quantity,
 VALUES
   (4, 'Cei ce ne-au dat nume', '1972-01-01', 'vinyl', 19.99, 50, 'active'),
   (4, 'Mugur de fluier', '1974-01-01', 'cassette', 17.99, 60, 'active');
+
+INSERT INTO site_stats (id, visitors, page_views, users_count)
+VALUES 
+    (1, 0, 0, 0);

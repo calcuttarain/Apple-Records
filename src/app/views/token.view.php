@@ -1,9 +1,11 @@
-<form method="POST" action="<?= ROOT ?>/authentication/verifyToken">
-    <input type="text" name="token" placeholder="Token" required>
-    <button type="submit">Verifică</button>
-</form>
+<?php if (!empty($_SESSION['error'])): ?>
+        <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
+    <?php endif; ?>
+
+
+<p>Te rugăm să îți verifici contul de email pentru link-ul de confirmare.</p>
 
 <form method="POST" action="<?= ROOT ?>/authentication/resendToken">
-    <button type="submit">Retrimite token</button>
+    <button type="submit">Retrimite link de verificare</button>
 </form>
 

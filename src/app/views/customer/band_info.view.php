@@ -5,7 +5,8 @@
     <title>Informații despre trupă</title>
 </head>
 <body>
-<?php require __DIR__ . '/header.view.php'; ?>
+
+<?php require __DIR__ . '/../header.view.php'; ?>
 
 <h1>Trupă: <?= htmlspecialchars($bandName) ?></h1>
 

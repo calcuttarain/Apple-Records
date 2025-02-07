@@ -1,9 +1,12 @@
 <?php
 
 trait Controller{
-    public function view($name, $data = [])
+    public function view($name, $data = [], $category = null)
     {
-        $filename = '../app/views/'.$name.'.view.php';
+        $filename = $category 
+            ? "../app/views/$category/$name.view.php" 
+            : "../app/views/$name.view.php";
+
         if (!file_exists($filename)) {
             $filename = '../app/views/404.view.php';
         }

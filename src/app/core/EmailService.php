@@ -50,11 +50,9 @@ class EmailService
     {
         $verificationLink = ROOT . "/authentication/verifyToken?token=$token";
 
-        $subject = 'Autentificare cu token';
-        $body = "Salut $recipientName,<br><br>Tokenul tău pentru autentificare este: <b>$token</b><br><br>
-                 Sau poți verifica direct folosind acest link: <a href=\"$verificationLink\">Verifică acum</a><br><br>Mulțumim!";
-        $altBody = "Salut $recipientName,\n\nTokenul tău pentru autentificare este: $token\n\n
-                    Sau poți verifica direct folosind acest link: $verificationLink\n\nMulțumim!";
+        $subject = 'Autentificare cu Link';
+        $body = "Salut $recipientName,<br><br>Contul tau poate fi verificat folosind acest link: <a href=\"$verificationLink\">Link de verificare</a><br><br>Mulțumim!";
+        $altBody = "Poți verifica direct contul folosind acest link: $verificationLink\n\nMulțumim!";
 
         $this->sendEmail($recipientEmail, $recipientName, $subject, $body, $altBody);
     }
@@ -68,14 +66,7 @@ class EmailService
             $body = "Mesaj primit de la: $fromEmail <br><br>$message";
             $altBody = "Mesaj primit de la: $fromEmail\n\n$message";
 
-            $this->mailer->clearAddresses();
-            $this->mailer->addAddress($toEmail, $toName);
-            $this->mailer->isHTML(true);
-            $this->mailer->Subject = $subject;
-            $this->mailer->Body = $body;
-            $this->mailer->AltBody = $altBody;
-
-            $this->mailer->send();
+            $this->sendEmail($toEmail, $toName, $subject, $body, $altBody);
         } catch (Exception $e) {
             throw new Exception('Eroare la trimiterea mesajului de contact: ' . $this->mailer->ErrorInfo);
         }

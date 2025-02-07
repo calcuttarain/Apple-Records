@@ -6,9 +6,10 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/../header.view.php'; ?>
+
 <h1>Bine ai venit, Admin!</h1>
 
-<!-- Mesaje de succes / eroare, după preferințe -->
 <?php if (!empty($_SESSION['success'])): ?>
     <p style="color:green;">
         <?= htmlspecialchars($_SESSION['success']); ?>
@@ -23,7 +24,6 @@
     </p>
 <?php endif; ?>
 
-<!-- Butonul de Download Excel -->
 <p>
     <a href="<?= ROOT ?>/admin/downloadActivityExcel"
        style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
@@ -33,4 +33,3 @@
 
 </body>
 </html>
-

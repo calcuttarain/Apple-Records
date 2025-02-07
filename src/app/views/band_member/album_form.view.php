@@ -7,7 +7,7 @@
 
 <h1>Cerere de Album</h1>
 
-<?php require __DIR__ . '/header.view.php'; ?>
+<?php require __DIR__ . '/../header.view.php'; ?>
 
 <?php if(!empty($_SESSION['error'])): ?>
     <p style="color:red;">

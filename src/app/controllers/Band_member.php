@@ -12,16 +12,16 @@ class Band_member
         $found = $bandMemberModel->findByUserId($_SESSION['user_id']);
 
         if ($found) {
-            $this->view('band_member_dashboard');
+            $this->view('dashboard', [], 'band_member');
         } else {
-            $this->view('band_member_not_verified');
+            $this->view('not_verified', [], 'band_member');
         }
     }
 
     public function contractForm()
     {
         $this->authorize(['band_member']);
-        $this->view('band_member_contract_form');
+        $this->view('contract_form', [], 'band_member');
     }
 
     public function createContractRequest()
@@ -42,7 +42,7 @@ class Band_member
             $requestId = $contractRequestModel->createContractRequest($data);
 
             if ($requestId) {
-                $_SESSION['success'] = 'Cererea de contract a fost trimisă cu succes (Request #'.$requestId.').';
+                $_SESSION['success'] = 'Cererea de contract cu ID-ul ' .$requestId. 'a fost trimisă cu succes!';
                 header('Location: ' . ROOT . '/band_member');
             } else {
                 $_SESSION['error'] = 'Eroare la crearea cererii de contract.';
@@ -62,17 +62,7 @@ class Band_member
         $contractRequestModel = new ContractRequestModel();
         $myRequests = $contractRequestModel->getContractRequestsByUser($_SESSION['user_id']);
 
-        $this->view('band_member_my_contracts', ['requests' => $myRequests]);
-    }
-
-    public function view($name, $data = [])
-    {
-        $filename = '../app/views/' . $name . '.view.php';
-        if (!file_exists($filename)) {
-            $filename = '../app/views/404.view.php';
-        }
-        extract($data);
-        require $filename;
+        $this->view('my_contracts', ['requests' => $myRequests], 'band_member');
     }
 
 public function albumForm()
@@ -87,7 +77,7 @@ public function albumForm()
             exit;
         }
 
-        $this->view('band_member_album_form');
+        $this->view('album_form', [], 'band_member');
     }
 
     public function createAlbumRequest()
@@ -118,7 +108,7 @@ public function albumForm()
             $requestId = $albumRequestModel->createAlbumRequest($data);
 
             if ($requestId) {
-                $_SESSION['success'] = "Cererea de album (#$requestId) a fost trimisă.";
+                $_SESSION['success'] = "Cererea de album cu ID-ul '. $requestId. ' a fost trimisă cu succes!";
                 header('Location: ' . ROOT . '/band_member');
             } else {
                 $_SESSION['error'] = 'Eroare la crearea cererii de album.';
@@ -138,8 +128,7 @@ public function albumForm()
         $albumRequestModel = new AlbumRequestModel();
         $myAlbumRequests = $albumRequestModel->getAlbumRequestsByUser($_SESSION['user_id']);
 
-        $this->view('band_member_my_album_requests', ['requests' => $myAlbumRequests]);
+        $this->view('my_album_requests', ['requests' => $myAlbumRequests], 'band_member');
     }
-
 }
 

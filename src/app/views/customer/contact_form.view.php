@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<?php require __DIR__ . '/../header.view.php'; ?>
+
 
 <h1>Contact Casa de Discuri</h1>
 
