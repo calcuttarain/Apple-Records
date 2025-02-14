@@ -214,6 +214,7 @@ class Customer
             $data = $_POST;
             $subject = trim($data['subject'] ?? '');
             $message = trim($data['message'] ?? '');
+            $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
             if (empty($subject) || empty($message)) {
                 $_SESSION['error'] = 'Subiectul și mesajul sunt obligatorii.';
@@ -221,8 +222,13 @@ class Customer
                 exit;
             }
 
-            $fromEmail = $_SESSION['email'] ?? 'unknown@example.com';
+            if (!Utils::verifyRecaptcha($recaptchaResponse)) {
+                $_SESSION['error'] = 'Verificare reCAPTCHA eșuată. Te rugăm să încerci din nou.';
+                header('Location: ' . ROOT . '/customer/contactForm');
+                exit;
+            }
 
+            $fromEmail = $_SESSION['email'] ?? 'unknown@example.com';
             $emailService = new EmailService();
 
             try {

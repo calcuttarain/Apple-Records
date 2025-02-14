@@ -57,5 +57,17 @@ class Utils
     {
         return password_verify($password, $hashedPassword);
     }
+
+    public static function verifyRecaptcha($recaptchaResponse)
+    {
+        $secretKey = RECAPTCHA_SECRET_KEY;
+        $verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+        $response = file_get_contents($verifyUrl . "?secret={$secretKey}&response={$recaptchaResponse}");
+        $responseData = json_decode($response);
+
+        return $responseData->success ?? false;
+    }
+
 }
 

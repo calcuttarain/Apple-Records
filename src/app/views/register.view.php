@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <!-- Include scriptul Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <h1>Register</h1>
@@ -36,7 +38,13 @@
             <option value="admin">Admin</option>
         </select>
         <br>
+
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="<?= RECAPTCHA_SITE_KEY; ?>"></div>
+        <br>
+
         <button type="submit">Register</button>
     </form>
 </body>
 </html>
+

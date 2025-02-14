@@ -103,9 +103,16 @@ class Authentication
             $password = $data['password'] ?? '';
             $confirm_password = $data['confirm_password'] ?? '';
             $type = $data['type'] ?? 'customer';
+            $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
             if (Utils::hasEmptyFields($data)) {
                 $_SESSION['error'] = 'Toate câmpurile sunt obligatorii.';
+                header('Location: ' . ROOT . '/authentication/register');
+                exit;
+            }
+
+            if (!Utils::verifyRecaptcha($recaptchaResponse)) {
+                $_SESSION['error'] = 'Verificare reCAPTCHA eșuată. Te rugăm să încerci din nou.';
                 header('Location: ' . ROOT . '/authentication/register');
                 exit;
             }
@@ -123,7 +130,7 @@ class Authentication
             }
 
             if (!Utils::isPasswordStrong($password)) {
-                $_SESSION['error'] = 'Parola trebuie să aibă cel puțin 8 caractere, cel putin o literă mare și cel putin o cifră.';
+                $_SESSION['error'] = 'Parola trebuie să aibă cel puțin 8 caractere, cel puțin o literă mare și cel puțin o cifră.';
                 header('Location: ' . ROOT . '/authentication/register');
                 exit;
             }

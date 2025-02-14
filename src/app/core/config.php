@@ -21,3 +21,5 @@ define('SMTP_HOST', getenv('SMTP_HOST'));
 define('SMTP_PORT', getenv('SMTP_PORT'));
 define('SMTP_USER', getenv('SMTP_USER'));
 define('SMTP_PASS', getenv('SMTP_PASS'));
+define('RECAPTCHA_SITE_KEY', getenv('GOOGLE_RECAPTCHA_SITE_KEY'));
+define('RECAPTCHA_SECRET_KEY', getenv('GOOGLE_RECAPTCHA_SECRET_KEY'));

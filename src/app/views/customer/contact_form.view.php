@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>Contact Casa de Discuri</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
 <?php require __DIR__ . '/../header.view.php'; ?>
 
-
 <h1>Contact Casa de Discuri</h1>
 
-<!-- Mesaje de succes/eroare -->
 <?php if (!empty($_SESSION['success'])): ?>
     <p style="color: green;">
         <?= htmlspecialchars($_SESSION['success']); ?>
@@ -35,6 +34,11 @@
         <label for="message">Mesaj:</label><br>
         <textarea id="message" name="message" rows="5" cols="50" required></textarea>
     </p>
+
+    <p>
+            <div class="g-recaptcha" data-sitekey="<?= RECAPTCHA_SITE_KEY; ?>"></div>
+    </p>
+
     <p>
         <button type="submit">Trimite</button>
     </p>
@@ -46,3 +50,4 @@
 
 </body>
 </html>
+
