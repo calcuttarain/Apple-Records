@@ -251,8 +251,22 @@ class Customer
         }
 
         $decodedName = urldecode($bandName);
+        $bandModel = new BandModel();
 
-        $wikiInfo = $this->fetchWikiExcerpt($decodedName);
+        $existingBand = $bandModel->select_first(['name' => $decodedName]);
+
+        if ($existingBand && !empty($existingBand->description)) {
+            $wikiInfo = [
+                "trupa" => $decodedName,
+                "rezumat_original" => htmlspecialchars($existingBand->description),
+                "rezumat_procesat" => htmlspecialchars($existingBand->description),
+                "sursa" => "Baza de date",
+                "imagine" => null,
+                "data_extragerii" => date("Y-m-d H:i:s")
+            ];
+        } else {
+            $wikiInfo = $this->fetchWikiExcerpt($decodedName);
+        }
 
         $this->view('band_info', [
             'bandName' => $decodedName,
@@ -260,28 +274,51 @@ class Customer
         ], 'customer');
     }
 
-    private function fetchWikiExcerpt($bandName)
+    private function fetchWikiExcerpt($numeTrupa)
     {
-        $title = str_replace(' ', '_', $bandName);
-
-        $url = "https://en.wikipedia.org/api/rest_v1/page/summary/" . urlencode($title);
+        $titluFormat = str_replace(' ', '_', $numeTrupa);
+        $url = "https://ro.wikipedia.org/api/rest_v1/page/summary/" . $titluFormat;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
+        $raspuns = curl_exec($ch);
         curl_close($ch);
 
-        if (!$response) {
-            return "Nu s-a putut obține informația de pe Wikipedia.";
+        if (!$raspuns) {
+            return [
+                "status" => "eroare",
+                "mesaj" => "Nu s-a putut obține informația de pe Wikipedia."
+            ];
         }
 
-        $data = json_decode($response, true);
-        if (isset($data['extract']) && !empty($data['extract'])) {
-            return $data['extract'];  
-        } else {
-            return "Nu există rezumat Wikipedia pentru această trupă.";
+        $date = json_decode($raspuns, true);
+
+        if (isset($date['type']) && $date['type'] === "disambiguation") {
+            $titluFormatNou = $titluFormat . ("_(formație)");
+            return $this->fetchWikiExcerpt($titluFormatNou);
         }
+
+        if (isset($date['extract']) && !empty($date['extract'])) {
+            $rezumat_original = $date['extract'];
+            $rezumat_procesat = preg_replace(['/,\s*care/', '/,\s*dar/', '/,\s*cu/'], 
+                                             ['. Aceasta', '. De asemenea,', '. Include elemente de'], 
+                                             $rezumat_original);
+            $rezumat_procesat = preg_replace('/([.?!])\s+/', "$1\n", $rezumat_procesat);
+
+            return [
+                "trupa" => $numeTrupa,
+                "rezumat_original" => htmlspecialchars($rezumat_original), 
+                "rezumat_procesat" => htmlspecialchars($rezumat_procesat), 
+                "sursa" => $date['content_urls']['desktop']['page'] ?? "N/A",
+                "imagine" => $date['originalimage']['source'] ?? null,
+                "data_extragerii" => date("Y-m-d H:i:s")
+            ];
+        }
+
+        return [
+            "status" => "eroare",
+            "mesaj" => "Nu s-a găsit informație relevantă despre '$numeTrupa' pe Wikipedia."
+        ];
     }
-
 }

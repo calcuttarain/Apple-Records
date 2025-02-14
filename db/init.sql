@@ -134,9 +134,9 @@ VALUES
 
 INSERT INTO bands (name, description, date_formed)
 VALUES
-  ('The Beatles', 'A rock band formed in Liverpool', '1960-01-01'),
-  ('Led Zeppelin', 'An English rock band formed in London', '1968-01-01'),
-  ('Pink Floyd', 'An English rock band formed in London', '1965-01-01'),
+  ('The Beatles', NULL, '1960-01-01'),
+  ('Led Zeppelin', NULL, '1968-01-01'),
+  ('Pink Floyd', NULL, '1965-01-01'),
   ('Phoenix', 'O trupa rock romaneasca din Timisoara', '1962-01-01');
 
 INSERT INTO band_members (user_id, band_id, date_joined)
