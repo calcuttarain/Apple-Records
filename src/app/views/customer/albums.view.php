@@ -22,7 +22,6 @@
             <tr>
                 <th>Trupă</th>
                 <th>Album</th>
-                <th>Descriere trupă</th>
                 <th>Data lansării</th>
                 <th>Format</th>
                 <th>Preț (RON)</th>
@@ -39,7 +38,6 @@
                         </a>
                 </td>
                 <td><?= htmlspecialchars($album->title) ?></td>
-                <td><?= htmlspecialchars($album->band_description) ?></td>
                 <td><?= htmlspecialchars($album->release_date) ?></td>
                 <td><?= htmlspecialchars($album->format) ?></td>
                 <td><?= htmlspecialchars($album->price) ?></td>

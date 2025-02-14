@@ -27,9 +27,31 @@
 <p>
     <a href="<?= ROOT ?>/admin/downloadActivityExcel"
        style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
-        Descarcă Raport Activitate (Excel)
+        Descarcă Raport Activitate (Excel - CSV)
+    </a>
+</p>
+
+<p>
+    <a href="<?= ROOT ?>/admin/downloadActivityXLSX"
+       style="padding: 10px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+        Descarcă Raport Activitate (Excel - XLSX)
+    </a>
+</p>
+
+<p>
+    <a href="<?= ROOT ?>/admin/downloadActivityPDF"
+       style="padding: 10px; background: #dc3545; color: white; text-decoration: none; border-radius: 5px;">
+        Descarcă Raport Activitate (PDF)
+    </a>
+</p>
+
+<p>
+    <a href="<?= ROOT ?>/admin/downloadActivityDOC"
+       style="padding: 10px; background: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
+        Descarcă Raport Activitate (Word - DOC)
     </a>
 </p>
 
 </body>
 </html>
+
