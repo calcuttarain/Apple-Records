@@ -30,7 +30,7 @@ class Authentication
     {
         session_unset();
         session_destroy();
-        header('Location: ' . ROOT);
+        header('Location: ' . ROOT . '/home');
         exit;
     }
 

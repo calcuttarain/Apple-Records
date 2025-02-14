@@ -4,12 +4,13 @@ trait Controller{
     public function view($name, $data = [], $category = null)
     {
         $filename = $category 
-            ? "../app/views/$category/$name.view.php" 
-            : "../app/views/$name.view.php";
+            ? __DIR__ . "/../views/$category/$name.view.php" 
+            : __DIR__ . "/../views/$name.view.php";
 
         if (!file_exists($filename)) {
-            $filename = '../app/views/404.view.php';
+            $filename = __DIR__ . '/../views/404.view.php';
         }
+
 
         extract($data);
         require $filename;
