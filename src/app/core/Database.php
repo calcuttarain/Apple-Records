@@ -27,7 +27,11 @@ trait Database
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            die("Database connection failed: " . $e->getMessage());
+            die(" Database connection failed: " . $e->getMessage() . "<br>" .
+                " <strong>DB_HOST:</strong> {$this->host}<br>" .
+                " <strong>DB_NAME:</strong> {$this->dbname}<br>" .
+                " <strong>DB_USER:</strong> {$this->user}<br>" .
+                " <strong>DB_PASS:</strong> " . ($this->password ? 'SET' : 'NOT SET') . "<br>");
         }
     }
 
