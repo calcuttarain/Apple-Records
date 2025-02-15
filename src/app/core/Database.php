@@ -13,7 +13,7 @@ trait Database
         $this->host = getenv('DB_HOST');
         $this->dbname = getenv('DB_NAME');
         $this->user = getenv('DB_USER');
-        $password = getenv('DB_PASS');
+        $password = 'pass';
 
         $this->connect();
     }
