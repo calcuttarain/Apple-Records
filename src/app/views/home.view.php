@@ -28,7 +28,7 @@
 
 <!-- Conținut Principal -->
 <div class="text-start mx-auto" style="max-width: 750px;">
-        <h2>O casă de discuri revoluționară</h2>
+        <h2>It verges from The Sublime to The Ridiculode!</h2>
         <p class="fs-5 text-muted">
             <strong>Apple Records</strong> a fost fondată în <strong>1968</strong> de <strong>The Beatles</strong>, din dorința de a avea <strong>control artistic total</strong> asupra muzicii lor și de a sprijini artiști talentați care nu se încadrau în standardele rigide ale industriei muzicale din acea vreme.
         </p>
