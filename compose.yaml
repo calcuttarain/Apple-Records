@@ -1,7 +1,13 @@
 version: '3.8'
 
+networks:
+  my_network:
+
 services:
   server:
+
+    networks:
+      - my_network
     build:
       context: .
     ports:
@@ -31,6 +37,8 @@ services:
       - .env
 
   db:
+    networks:
+      - my_network
     image: mysql:8.0
     restart: always
     # secrets:
@@ -54,6 +62,8 @@ services:
       retries: 5
 
   phpmyadmin:
+    networks:
+      - my_network
     image: phpmyadmin
     ports:
       - 8080:80
