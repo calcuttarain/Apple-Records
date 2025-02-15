@@ -23,3 +23,8 @@ define('SMTP_USER', getenv('SMTP_USER'));
 define('SMTP_PASS', getenv('SMTP_PASS'));
 define('RECAPTCHA_SITE_KEY', getenv('GOOGLE_RECAPTCHA_SITE_KEY'));
 define('RECAPTCHA_SECRET_KEY', getenv('GOOGLE_RECAPTCHA_SECRET_KEY'));
+define('MYSQL_DATABASE', getenv('MYSQL_DATABASE'));
+define('MYSQL_HOST', getenv('MYSQL_HOST'));
+define('MYSQL_PORT', getenv('MYSQL_PORT'));
+define('MYSQL_USER', getenv('MYSQLUSER'));
+define('MYSQL_PASSWORD', getenv('MYSQLPASSWORD'));
