@@ -42,7 +42,7 @@ class Band_member
             $requestId = $contractRequestModel->createContractRequest($data);
 
             if ($requestId) {
-                $_SESSION['success'] = 'Cererea de contract cu ID-ul ' .$requestId. 'a fost trimisă cu succes!';
+                $_SESSION['success'] = 'Cererea de contract cu ID-ul ' .$requestId. ' a fost trimisă cu succes!';
                 header('Location: ' . ROOT . '/band_member');
             } else {
                 $_SESSION['error'] = 'Eroare la crearea cererii de contract.';
@@ -108,7 +108,7 @@ public function albumForm()
             $requestId = $albumRequestModel->createAlbumRequest($data);
 
             if ($requestId) {
-                $_SESSION['success'] = "Cererea de album cu ID-ul '. $requestId. ' a fost trimisă cu succes!";
+                $_SESSION['success'] = "Cererea de album cu ID-ul ". $requestId. " a fost trimisă cu succes!";
                 header('Location: ' . ROOT . '/band_member');
             } else {
                 $_SESSION['error'] = 'Eroare la crearea cererii de album.';

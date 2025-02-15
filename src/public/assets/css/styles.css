@@ -483,3 +483,136 @@ textarea:focus {
     box-shadow: 0 0 8px rgba(212, 175, 55, 0.5) !important;
 }
 
+.verification-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* ✉️ Stilizare text mesaj */
+.verification-text {
+    font-size: 1.1rem;
+    color: #F8F1E5; /* Alb cald */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
+
+
+
+/* band_member */
+
+/* ✅ Container general pentru Dashboard */
+.dashboard-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+}
+
+/* 📌 Stilizare titluri și text */
+.dashboard-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #F8F1E5; /* Alb cald */
+    margin-bottom: 15px;
+}
+
+/* 📩 Mesaj de succes */
+.success-message {
+    background-color: #1f5a2e; /* Verde închis */
+    color: #d7f8e0; /* Verde deschis */
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ❌ Mesaj de eroare */
+.error-message {
+    background-color: #5a1f1f; /* Burgundy Dark */
+    color: #f8d7da; /* Roșu deschis */
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 📌 Stilizare text */
+.welcome-text {
+    font-size: 1.2rem;
+    color: #F8F1E5;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.info-text {
+    font-size: 1rem;
+    color: #ccc9bb;
+    margin-bottom: 15px;
+}
+
+.motivation-text {
+    font-size: 1rem;
+    color: #D4AF37; /* Auriu Champagne */
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* 📌 Centrare reCAPTCHA */
+.recaptcha-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 55px;
+}
+
+/* ✅ Buton Acceptă */
+.btn-success-custom {
+    background-color: #28a745; /* Verde pastel */
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-success-custom:hover {
+    background-color: #218838; /* Verde mai închis */
+}
+
+/* ❌ Buton Respinge */
+.btn-danger-custom {
+    background-color: #dc3545; /* Roșu pastel */
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-danger-custom:hover {
+    background-color: #c82333; /* Roșu mai închis */
+}
+
+/* 📌 Centrare acțiuni și spațiere îmbunătățită */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+

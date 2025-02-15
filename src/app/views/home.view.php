@@ -65,7 +65,7 @@
 <div class="stats-container">
     <p class="small text-muted">
         <?php if (!empty($stats)): ?>
-            <strong>Vizitatori pagina:</strong> <strong><?= htmlspecialchars($stats->visitors) ?></strong>
+            <strong>Accesari pagina:</strong> <strong><?= htmlspecialchars($stats->visitors) ?></strong>
         <?php else: ?>
             <strong>Statistici indisponibile momentan.</strong>
         <?php endif; ?>

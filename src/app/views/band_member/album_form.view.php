@@ -1,50 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cerere de Album</title>
+
+    <!-- Bootstrap & Stiluri -->
+    <link href="<?= ROOT ?>/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= ROOT ?>/public/assets/css/styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<h1>Cerere de Album</h1>
 
-<?php require __DIR__ . '/../header.view.php'; ?>
+<?php include __DIR__ . '/../partials/logout_navbar.php'; ?>
+<div class="container mt-5 text-center">
+    <h1 class="fw-bold">Cerere de Album</h1>
 
-<?php if(!empty($_SESSION['error'])): ?>
-    <p style="color:red;">
-        <?= htmlspecialchars($_SESSION['error']); ?>
+    <!-- ✅ Mesaj de eroare -->
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="error-message-1">
+            <?= htmlspecialchars($_SESSION['error']); ?>
+        </div>
         <?php unset($_SESSION['error']); ?>
-    </p>
-<?php endif; ?>
+    <?php endif; ?>
 
-<form action="<?= ROOT ?>/band_member/createAlbumRequest" method="POST">
+    <!-- 📌 Formular -->
+    <form action="<?= ROOT ?>/band_member/createAlbumRequest" method="POST" class="album-request-form mx-auto">
+        
+        <div class="mb-3 text-start">
+            <label for="title" class="form-label fw-bold">Titlu Album:</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+        </div>
 
-    <p>
-        <label for="title">Titlu Album:</label><br>
-        <input type="text" name="title" id="title" required>
-    </p>
+        <div class="mb-3 text-start">
+            <label for="format" class="form-label fw-bold">Format:</label>
+            <select name="format" id="format" class="form-select" required>
+                <option value="vinyl">Vinyl</option>
+                <option value="cassette">Cassette</option>
+                <option value="cd">CD</option>
+            </select>
+        </div>
 
-    <p>
-        <label for="format">Format:</label><br>
-        <select name="format" id="format" required>
-            <option value="vinyl">Vinyl</option>
-            <option value="cassette">Cassette</option>
-            <option value="cd">CD</option>
-        </select>
-    </p>
+        <div class="mb-3 text-start">
+            <label for="notes" class="form-label fw-bold">Note (opțional):</label>
+            <textarea name="notes" id="notes" rows="3" class="form-control"></textarea>
+        </div>
 
-    <p>
-        <label for="notes">Note (opțional):</label><br>
-        <textarea name="notes" id="notes" rows="3"></textarea>
-    </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn btn-custom-primary">
+                <strong>Trimite Cererea</strong>
+            </button>
+            <a href="<?= ROOT ?>/band_member" class="btn btn-custom-outline">
+                <strong>⟵ Înapoi la Dashboard</strong>
+            </a>
+        </div>
+    </form>
+</div>
 
-    <p>
-        <button type="submit">Trimite Cererea</button>
-    </p>
-</form>
-
-<p>
-    <a href="<?= ROOT ?>/band_member">Înapoi la Dashboard</a>
-</p>
+<!-- Bootstrap -->
+<script src="<?= ROOT ?>/public/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+

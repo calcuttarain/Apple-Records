@@ -1,69 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
-    <title>Album Requests (Pending)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cereri de Albume (În Așteptare)</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="<?= ROOT ?>/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= ROOT ?>/public/assets/css/styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<?php require __DIR__ . '/../header.view.php'; ?>
+<?php include __DIR__ . '/../partials/logout_navbar.php'; ?>
 
-<h1>Album Requests (Pending)</h1>
+<div class="container mt-5">
+    <h1 class="text-center">Cereri de Albume (În Așteptare)</h1>
 
-<?php if (!empty($_SESSION['success'])): ?>
-    <p style="color:green;">
-        <?= htmlspecialchars($_SESSION['success']) ?>
+    <!-- ✅ Mesaj de succes -->
+    <?php if (!empty($_SESSION['success'])): ?>
+        <div class="success-message-1">
+            <?= htmlspecialchars($_SESSION['success']); ?>
+        </div>
         <?php unset($_SESSION['success']); ?>
-    </p>
-<?php endif; ?>
+    <?php endif; ?>
 
-<?php if (!empty($_SESSION['error'])): ?>
-    <p style="color:red;">
-        <?= htmlspecialchars($_SESSION['error']) ?>
+    <!-- ❌ Mesaj de eroare -->
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="error-message-1">
+            <?= htmlspecialchars($_SESSION['error']); ?>
+        </div>
         <?php unset($_SESSION['error']); ?>
-    </p>
-<?php endif; ?>
+    <?php endif; ?>
 
-<?php if (!empty($requests)): ?>
-    <table border="1" cellpadding="6" cellspacing="0">
-        <tr>
-            <th>Request ID</th>
-            <th>User ID</th>
-            <th>Band ID</th>
-            <th>Title</th>
-            <th>Format</th>
-            <th>Notes</th>
-            <th>Actions</th>
-        </tr>
-        <?php foreach ($requests as $req): ?>
-            <tr>
-                <td><?= htmlspecialchars($req->request_id) ?></td>
-                <td><?= htmlspecialchars($req->user_id) ?></td>
-                <td><?= htmlspecialchars($req->band_id) ?></td>
-                <td><?= htmlspecialchars($req->title) ?></td>
-                <td><?= htmlspecialchars($req->format) ?></td>
-                <td><?= htmlspecialchars($req->notes) ?></td>
-                <td>
-                    <form action="<?= ROOT ?>/staff/acceptAlbumRequest/<?= $req->request_id ?>" method="POST" style="display:inline;">
-                        <input type="text" name="price" placeholder="Price" style="width:60px;">
-                        <input type="text" name="stock_quantity" placeholder="Stock" style="width:60px;">
-                        <button type="submit">Accept</button>
-                    </form>
-                    &nbsp; 
-                    <a href="<?= ROOT ?>/staff/rejectAlbumRequest/<?= $req->request_id ?>" 
-                       onclick="return confirm('Sigur respingi cererea #<?= $req->request_id ?>?');">
-                       Reject
-                    </a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <p>Nu există cereri de album în pending.</p>
-<?php endif; ?>
+    <?php if (!empty($requests)): ?>
+        <div class="table-responsive">
+            <table class="table table-custom">
+                <thead>
+                    <tr>
+                        <th>ID Cerere</th>
+                        <th>User ID</th>
+                        <th>ID Trupă</th>
+                        <th>Titlu</th>
+                        <th>Format</th>
+                        <th>Note</th>
+                        <th>Acțiuni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($requests as $req): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($req->request_id) ?></td>
+                            <td><?= htmlspecialchars($req->user_id) ?></td>
+                            <td><?= htmlspecialchars($req->band_id) ?></td>
+                            <td><?= htmlspecialchars($req->title) ?></td>
+                            <td><?= htmlspecialchars($req->format) ?></td>
+                            <td><?= htmlspecialchars($req->notes) ?></td>
+                            <td class="text-center action-buttons">
+                                <form action="<?= ROOT ?>/staff/acceptAlbumRequest/<?= $req->request_id ?>" method="POST" class="d-inline-flex gap-2">
+                                    <input type="text" name="price" placeholder="Preț" class="input-custom">
+                                    <input type="text" name="stock_quantity" placeholder="Stoc" class="input-custom">
+                                    <button type="submit" class="btn btn-success-custom">✔ Acceptă</button>
+                                </form>
 
-<p>
-    <a href="<?= ROOT ?>/staff">Înapoi la Staff Dashboard</a>
-</p>
+                                <a href="<?= ROOT ?>/staff/rejectAlbumRequest/<?= $req->request_id ?>" 
+                                   onclick="return confirm('Sigur respingi cererea #<?= $req->request_id ?>?');"
+                                   class="btn btn-danger-custom">
+                                    ✖ Respinge
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <p class="text-center text-muted">Nu există cereri de album în pending.</p>
+    <?php endif; ?>
+
+    <div class="text-center mt-4">
+        <a href="<?= ROOT ?>/staff" class="btn btn-custom-outline">↩ Înapoi la Staff Dashboard</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="<?= ROOT ?>/public/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

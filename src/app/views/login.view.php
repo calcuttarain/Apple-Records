@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <?php if (!empty($_SESSION['success'])): ?>
-            <div class="alert alert-success text-center fw-bold" role="alert">
+            <div class="success-message-1">
                 <?= $_SESSION['success']; ?>
             </div>
             <?php unset($_SESSION['success']); ?>
