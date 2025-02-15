@@ -1,56 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
+
+    <!-- Bootstrap & Stiluri -->
+    <link href="<?= ROOT ?>/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= ROOT ?>/public/assets/css/styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<?php require __DIR__ . '/../header.view.php'; ?>
+<?php include __DIR__ . '/../partials/logout_navbar.php'; ?>
 
-<h1>Bine ai venit, Admin!</h1>
+<div class="d-flex flex-column justify-content-center align-items-center text-center">
+    <h1 class="fw-bold">Admin Dashboard</h1>
 
-<?php if (!empty($_SESSION['success'])): ?>
-    <p style="color:green;">
-        <?= htmlspecialchars($_SESSION['success']); ?>
+    <!-- ✅ Mesaj de succes -->
+    <?php if (!empty($_SESSION['success'])): ?>
+        <div class="alert alert-success text-center">
+            <?= htmlspecialchars($_SESSION['success']); ?>
+        </div>
         <?php unset($_SESSION['success']); ?>
-    </p>
-<?php endif; ?>
+    <?php endif; ?>
 
-<?php if (!empty($_SESSION['error'])): ?>
-    <p style="color:red;">
-        <?= htmlspecialchars($_SESSION['error']); ?>
+    <?php if (!empty($_SESSION['error'])): ?>
+        <div class="alert alert-danger text-center">
+            <?= htmlspecialchars($_SESSION['error']); ?>
+        </div>
         <?php unset($_SESSION['error']); ?>
-    </p>
-<?php endif; ?>
+    <?php endif; ?>
 
-<p>
-    <a href="<?= ROOT ?>/admin/downloadActivityExcel"
-       style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
-        Descarcă Raport Activitate (Excel - CSV)
-    </a>
-</p>
+    <div class="justify-content-center align-items-center text-center d-flex flex-column welcome-message mt-4">
+        <p class="fs-5 text-light fw-bold">
+            <strong>Administrează cu responsabilitate.</strong>  
+            Puterea vine cu responsabilități, iar deciziile tale conturează direcția acestui proiect.  
+        </p>
+        <p class="fs-6 text-light opacity-75">
+            Ai acces la rapoarte detaliate despre activitatea platformei.  
+            Transparența și organizarea sunt cheia unui sistem eficient.  
+        </p>
+    </div>
 
-<p>
-    <a href="<?= ROOT ?>/admin/downloadActivityXLSX"
-       style="padding: 10px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">
-        Descarcă Raport Activitate (Excel - XLSX)
-    </a>
-</p>
+    <!-- 📌 Butoane de acțiune -->
+    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+        <a href="<?= ROOT ?>/admin/downloadActivityExcel" class="btn btn-custom-register btn-lg shadow-sm">
+            <strong>📊 Descarcă Raport (CSV)</strong>
+        </a>
+        <a href="<?= ROOT ?>/admin/downloadActivityXLSX" class="btn btn-custom-register btn-lg shadow-sm">
+            <strong>📈 Descarcă Raport (XLSX)</strong>
+        </a>
+        <a href="<?= ROOT ?>/admin/downloadActivityPDF" class="btn btn-custom-register btn-lg shadow-sm">
+            <strong>📄 Descarcă Raport (PDF)</strong>
+        </a>
+        <a href="<?= ROOT ?>/admin/downloadActivityDOC" class="btn btn-custom-register btn-lg shadow-sm">
+            <strong>📝 Descarcă Raport (DOC)</strong>
+        </a>
+    </div>
+</div>
 
-<p>
-    <a href="<?= ROOT ?>/admin/downloadActivityPDF"
-       style="padding: 10px; background: #dc3545; color: white; text-decoration: none; border-radius: 5px;">
-        Descarcă Raport Activitate (PDF)
-    </a>
-</p>
-
-<p>
-    <a href="<?= ROOT ?>/admin/downloadActivityDOC"
-       style="padding: 10px; background: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
-        Descarcă Raport Activitate (Word - DOC)
-    </a>
-</p>
+<!-- Bootstrap -->
+<script src="<?= ROOT ?>/public/assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
