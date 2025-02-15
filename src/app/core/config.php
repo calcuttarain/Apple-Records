@@ -6,7 +6,7 @@ require_once ROOT_PATH . '/../vendor/autoload.php';
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('ROOT', 'http://localhost:9000');
 } else {
-    define('ROOT', 'https://www.example.com');
+    define('ROOT', getenv('ROOT_LINK'));
 }
 
 define('APP_NAME', "Apple Records");
