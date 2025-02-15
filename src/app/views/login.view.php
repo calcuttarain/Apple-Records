@@ -1,30 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autentificare | Apple Records</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="<?= ROOT ?>/public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= ROOT ?>/public/assets/css/styles.css" rel="stylesheet"> <!-- Fișierul de stiluri -->
+
 </head>
-<body>
-    <h1>Login</h1>
+<body class="d-flex align-items-center justify-content-center vh-100">
 
-    <?php if (!empty($_SESSION['error'])): ?>
-        <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-    <?php endif; ?>
+<?php include __DIR__ . '/partials/general_navbar.php'; ?>
 
-    <?php if (!empty($_SESSION['success'])): ?>
-        <p style="color: green;"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></p>
-    <?php endif; ?>
+    <div class="login-container">
+        <h1 class="text-center">Autentificare</h1>
 
+        <!-- Mesaje de eroare și succes -->
+        <?php if (!empty($_SESSION['error'])): ?>
+            <div class="error-message text-center fw-bold" role="alert">
+                <?= $_SESSION['error']; ?>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
 
-    <form action="<?php echo ROOT; ?>/authentication/authenticate" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+        <?php if (!empty($_SESSION['success'])): ?>
+            <div class="alert alert-success text-center fw-bold" role="alert">
+                <?= $_SESSION['success']; ?>
+            </div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+
+        <!-- Formular de Login -->
+        <form action="<?= ROOT ?>/authentication/authenticate" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Parolă:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-custom-register w-100">Autentifică-te</button>
+        </form>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="<?= ROOT ?>/public/assets/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
+

@@ -4,12 +4,18 @@ class Router{
       private $controller = 'Home';
       private $method = 'index';
 
-      private function split_url()
-      {
-            $URL = $_GET['url'] ?? 'home';
-            $URL = explode('/', $URL);
-            return $URL;
-      }
+
+    private function split_url()
+    {
+        $URL = $_GET['url'] ?? '';
+        $URL = trim($URL, '/'); 
+
+        if ($URL === '') {
+            return ['Home'];
+        }
+
+        return explode('/', $URL);
+    }
 
       public function load_controller()
       {

@@ -1,0 +1,485 @@
+/* 🌆 Fundal & General Styles */
+body {
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    padding-top: 90px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/fundal.jpg') center/cover no-repeat;
+    filter: blur(4px) brightness(30%);
+    z-index: -1;
+}
+
+/* 📌 Secțiunea Hero */
+/* 🏆 HERO SECTION - Redimensionat și echilibrat */
+/* 🏆 HERO SECTION - Centrat & fără fundal */
+header {
+    min-height: 40vh; /* Menține o înălțime decentă */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 0; /* Redus padding-ul */
+    background: none !important; /* Elimină complet fundalul */
+}
+
+header .container {
+    max-width: 800px; /* Ajustează lățimea maximă */
+    width: 100%;
+}
+
+/* 🏅 Stilizare titluri Hero */
+header h1 {
+    font-size: 2.5rem; /* Mai mic pentru un aspect echilibrat */
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.85; /* Ușor transparent pentru un efect elegant */
+}
+
+/* 🏆 Logo Styling */
+.logo-container {
+    margin-top: 15px;
+}
+
+.logo-img {
+    max-width: 150px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logo-img:hover {
+    transform: scale(1.12);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 🔠 Stilizare Text & Titluri */
+h1, h2, h3, h4, h5, h6, p, a {
+    color: #F8F1E5 !important; /* Alb cald */
+    text-align: justify;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 40px;
+    text-transform: uppercase;
+}
+
+.text-muted {
+    color: #F8F1E5 !important;
+}
+
+/* 📌 Formular & Câmpuri Input */
+.form-label {
+    color: #F8F1E5 !important;
+}
+
+.form-control {
+    background-color: transparent;
+    border: 1px solid #e6cca1;
+    color: #F8F1E5 !important;
+}
+
+.form-control::placeholder {
+    color: #F8F1E5 !important;
+}
+
+/* 📌 Stilizare câmpuri de input */
+input, select {
+    background-color: #2e2a25 !important; /* Maro închis subtil */
+    border: 1px solid #b5a78d !important; /* Auriu Champagne */
+    color: #F8F1E5 !important; /* Alb cald */
+    padding: 10px !important;
+    border-radius: 5px !important;
+    width: 100% !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+/* ✏️ Când input-ul este selectat */
+input:focus, select:focus {
+    background-color: #403b34 !important; /* Maro mai deschis */
+    border-color: #ccc9bb !important; /* Auriu mai intens */
+    outline: none !important;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5) !important;
+}
+
+/* 📌 Placeholder text */
+input::placeholder {
+    color: #c2b8a3 !important; /* Bej subtil */
+    opacity: 0.7 !important;
+}
+
+/* 📌 Mesaj de eroare (Burgundy Dark) */
+.error-message-1 {
+    background-color: #5a1f1f; /* Burgundy Dark */
+    color: #f8d7da; /* Roșu deschis */
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%; /* Ocupă întreaga lățime */
+    max-width: 500px; /* Se potrivește cu formularul */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 📌 Mesaj de succes (Verde Elegant) */
+.success-message-1 {
+    background-color: #1f5a2e; /* Verde închis */
+    color: #d7f8e0; /* Verde deschis */
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%; /* Ocupă întreaga lățime */
+    max-width: 500px; /* Se potrivește cu formularul */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-message {
+    background-color: #5a1f1f; /* Burgundy Dark */
+    color: #f8d7da; /* Roșu deschis */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 🖱️ Butoane */
+.btn-custom-primary {
+    background-color: #5f5a4d; /* Auriu Champagne */
+    border-color: #e3ded1;
+    color: white;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-primary:hover {
+    background-color: #bdb9a7; /* Dusty Rose pentru efect retro */
+    border-color: #4f493f;
+    color: #5f5a4d;
+}
+
+.btn-custom-outline {
+    border-color: #e3ded1;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-outline:hover {
+    background-color: #ccc9bb;
+}
+
+/* 🖱️ Buton Înregistrare */
+.btn-custom-register {
+    background-color: #5f5a4d; /* Auriu Champagne */
+    border-color: #e3ded1;
+    color: white;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    margin: 20px auto; /* Pune butonul pe mijloc */
+    text-align: center;
+    width: fit-content;
+}
+
+.btn-custom-register:hover {
+    background-color: #bdb9a7; /* Dusty Rose pentru efect retro */
+    border-color: #4f493f;
+    color: #5f5a4d;
+}
+
+/* 📊 Statistici & Conținut */
+.text-container {
+    max-width: 750px;
+    margin: auto;
+    text-align: justify;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* Stilizare carduri album */
+.album-card {
+    background: rgba(255, 255, 255, 0.08);
+    color: #F8F1E5;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.album-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Stil text link bandă */
+.text-light-custom {
+    color: #D4AF37 !important; /* Auriu Champagne */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.text-light-custom:hover {
+    color: #b99e30 !important;
+    text-decoration: underline;
+}
+
+/* Navbar stilizat pentru integrare mai bună */
+.navbar-custom {
+    background: rgba(20, 20, 20, 0.7) !important; /* Negru semi-transparent */
+    backdrop-filter: blur(8px); /* Efect de blur pentru eleganță */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linia de jos subtilă */
+}
+
+/* Stilizare link-uri navbar */
+.navbar-custom .navbar-brand {
+    color: #bdb9a7 !important; /* Alb cald */
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: #9f987e !important; /* Auriu Champagne */
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: #ccc9bb !important; /* Auriu mai închis la hover */
+    text-decoration: underline;
+}
+
+/* Stilizare buton de toggle pentru mobil */
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-toggler-icon {
+    filter: brightness(90%);
+}
+
+
+/* Container pentru imaginea trupei */
+.band-image-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 10px;
+    display: inline-block;
+}
+
+/* Stil pentru textul informativ */
+.text-light {
+    color: #F8F1E5 !important;
+}
+
+/* Stil pentru tabelul coșului de cumpărături */
+.cart-table {
+    background: rgba(255, 255, 255, 0.1);
+    color: #F8F1E5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cart-table th {
+    background: rgba(255, 255, 255, 0.15);
+    color: #F8F1E5;
+}
+
+.cart-table td {
+    vertical-align: middle;
+}
+
+/* Stil pentru butoanele de cantitate */
+.btn-outline-light {
+    border-color: #F8F1E5;
+    color: #F8F1E5;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-light:hover {
+    background: #D4AF37;
+    color: black;
+}
+
+/* Îmbunătățire aspect butoane */
+.btn-custom-primary {
+    background-color: #5f5a4d;
+    border-color: #e3ded1;
+    color: white;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-primary:hover {
+    background-color: #bdb9a7;
+    color: black;
+}
+
+.btn-custom-outline {
+    border: 2px solid #e3ded1;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    color: #F8F1E5;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-outline:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 📌 Footer stilizat */
+.main-content {
+    flex: 1 !important; /* Împinge footer-ul jos */
+}
+
+/* 📌 Stilizare link-uri footer */
+.footer-custom a {
+    color: #D4AF37 !important; /* Auriu Champagne */
+    text-decoration: none !important;
+    font-weight: bold !important;
+    transition: color 0.3s ease-in-out !important;
+}
+
+.footer-custom a:hover {
+    color: #b99e30 !important; /* Auriu mai închis */
+    text-decoration: underline !important;
+}
+
+/* 📌 Text mic */
+.footer-custom .small {
+    font-size: 0.85rem !important;
+    opacity: 0.7 !important;
+}
+
+/* 📌 Stilizare tabel pentru comenzile utilizatorului */
+.table-dark-custom {
+    background: rgba(255, 255, 255, 0.08);
+    color: #5f5a4d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.thead-custom {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.table-dark-custom th {
+    color: #5f5a4d; /* Auriu Champagne */
+    font-weight: bold;
+}
+
+.table-dark-custom td {
+    vertical-align: middle;
+}
+
+.table-dark-custom tr:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transition: background 0.3s ease-in-out;
+}
+
+/* 📌 Badge Status Comenzi */
+.badge {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.bg-success {
+    background-color: #28a745 !important; /* Verde pentru comenzi finalizate */
+}
+
+.bg-warning {
+    background-color: #d4cc9a !important; /* Galben pentru comenzi în curs */
+}
+
+/* 📌 Stilizare Form Contact */
+.contact-form {
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #F8F1E5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* 📌 Stilizare reCAPTCHA */
+.g-recaptcha {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+
+
+
+
+/* 📌 Evită schimbarea culorii de fundal la focus */
+textarea {
+    background-color: #2e2a25 !important; /* Maro închis subtil */
+    border: 1px solid #b5a78d !important; /* Auriu Champagne */
+    color: #F8F1E5 !important; /* Alb cald */
+    padding: 10px !important;
+    border-radius: 5px !important;
+    width: 100% !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+/* 📌 Menține culoarea și la focus */
+textarea:focus {
+    background-color: #403b34 !important; /* Maro mai deschis */
+    border-color: #ccc9bb !important; /* Auriu mai intens */
+    outline: none !important;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5) !important;
+}
+
